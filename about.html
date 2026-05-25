@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Lé Juice | Rochester, MI</title>
+  <meta name="description" content="Lé Juice — organic juice bar and fresh fare in downtown Rochester, MI. A community space at 118 W. University.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="header" id="header">
+    <div class="container">
+      <div class="header__inner">
+        <a href="index.html" class="logo">Lé <span>Juice</span></a>
+        <nav>
+          <ul class="nav__list" id="navList">
+            <li><a href="index.html" class="nav__link">Home</a></li>
+            <li><a href="menu.html" class="nav__link">Menu</a></li>
+            <li><a href="about.html" class="nav__link active">About</a></li>
+            <li><a href="contact.html" class="nav__link">Contact</a></li>
+          </ul>
+          <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- About Hero -->
+  <section class="about-hero section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-header__eyebrow">Who We Are</p>
+        <h1 class="section-header__title">The Neighborhood Juice Spot</h1>
+        <p class="section-header__subtitle">Organic cold-pressed juices, fresh fare, and a corner of downtown Rochester where you can actually slow down.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Intro Section -->
+  <section class="section">
+    <div class="container">
+      <div class="about-intro">
+        <div class="about-intro__content">
+          <h2>Set Up in Downtown Rochester</h2>
+          <p style="margin-bottom: var(--space-3);">We opened at 118 W. University because we wanted to be part of the neighborhood — not just a storefront in it. That's the whole thing: organic juices, fresh food, and a place that actually feels like it's for the people who live here.</p>
+          <p style="margin-bottom: var(--space-3);">The menu is built around what grows — organic fruits and vegetables, changed up with the seasons. Nothing processed. Nothing you can't pronounce.</p>
+          <p>Come as you are. Stay as long as you want.</p>
+        </div>
+        <div class="about-intro__image">
+          <img src="img/instagram-012.png" alt="Lé Juice interior">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vibe Gallery — grid with lightbox on click -->
+  <section class="vibe-section section">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-header__eyebrow">The Space</p>
+        <h2 class="section-header__title">Come Take a Look</h2>
+        <p class="section-header__subtitle">Our corner of downtown Rochester. Tap any photo to enlarge.</p>
+      </div>
+      <div class="vibe-grid" id="vibeGrid">
+        <div class="vibe-grid__item">
+          <img src="img/instagram-012.png" alt="Lé Juice café interior">
+        </div>
+        <div class="vibe-grid__item">
+          <img src="img/instagram-013.png" alt="Inside Lé Juice">
+        </div>
+        <div class="vibe-grid__item">
+          <img src="img/instagram-014.png" alt="Lé Juice seating">
+        </div>
+        <div class="vibe-grid__item">
+          <img src="img/instagram-015.png" alt="Lé Juice space">
+        </div>
+        <div class="vibe-grid__item">
+          <img src="img/instagram-016.png" alt="Lé Juice interior detail">
+        </div>
+        <div class="vibe-grid__item">
+          <img src="img/instagram-017.png" alt="Lé Juice counter">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true">
+    <button class="lightbox__close" id="lightboxClose" aria-label="Close gallery">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+    <button class="lightbox__nav lightbox__nav--prev" id="lightboxPrev" aria-label="Previous photo">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+      </svg>
+    </button>
+    <img class="lightbox__img" id="lightboxImg" src="" alt="">
+    <button class="lightbox__nav lightbox__nav--next" id="lightboxNext" aria-label="Next photo">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+      </svg>
+    </button>
+    <div class="lightbox__counter" id="lightboxCounter">1 / 6</div>
+  </div>
+
+  <script>
+    const strip = document.getElementById('vibeGrid');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxCounter = document.getElementById('lightboxCounter');
+    const items = strip.querySelectorAll('.vibe-grid__item img');
+    let current = 0;
+
+    function openLightbox(index) {
+      current = index;
+      updateLightbox();
+      lightbox.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    function updateLightbox() {
+      lightboxImg.src = items[current].src;
+      lightboxImg.alt = items[current].alt;
+      lightboxCounter.textContent = (current + 1) + ' / ' + items.length;
+    }
+
+    strip.querySelectorAll('.vibe-grid__item').forEach((item, i) => {
+      item.addEventListener('click', () => openLightbox(i));
+    });
+
+    document.getElementById('lightboxClose').addEventListener('click', closeLightbox);
+
+    document.getElementById('lightboxPrev').addEventListener('click', () => {
+      current = (current - 1 + items.length) % items.length;
+      updateLightbox();
+    });
+
+    document.getElementById('lightboxNext').addEventListener('click', () => {
+      current = (current + 1) % items.length;
+      updateLightbox();
+    });
+
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') { current = (current - 1 + items.length) % items.length; updateLightbox(); }
+      if (e.key === 'ArrowRight') { current = (current + 1) % items.length; updateLightbox(); }
+    });
+  </script>
+
+  <!-- Values Section -->
+  <section class="section">
+    <div class="container">
+      <div class="bento">
+        <div class="bento__item">
+          <div class="bento__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386l-1.591 1.591M21 12h-2.25m-.386 6.364l-1.591-1.591M12 18.75V21m-4.773-4.227l-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" />
+            </svg>
+          </div>
+          <h3 class="bento__title">Organic</h3>
+          <p class="bento__text">Organic fruits and vegetables, pressed and blended fresh every morning.</p>
+        </div>
+        <div class="bento__item">
+          <div class="bento__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+            </svg>
+          </div>
+          <h3 class="bento__title">Community</h3>
+          <p class="bento__text">A place to slow down. WiFi, space to work, or just a corner to drink your juice and be.</p>
+        </div>
+        <div class="bento__item">
+          <div class="bento__icon">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.846a4.5 4.5 0 003.09 3.09L15.75 12l-2.846.813a4.5 4.5 0 00-3.09 3.09zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423l.394-1.183.394 1.183a2.25 2.25 0 001.423 1.423l1.183.394-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
+            </svg>
+          </div>
+          <h3 class="bento__title">Honest Food</h3>
+          <p class="bento__text">No hidden ingredients. No shortcuts. Just real food, made the long way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Location Section -->
+  <section class="section section--white">
+    <div class="container">
+      <div class="section-header">
+        <p class="section-header__eyebrow">Find Us</p>
+        <h2 class="section-header__title">Come Say Hi</h2>
+        <p class="section-header__subtitle">118 W. University, downtown Rochester. Walk ins always welcome.</p>
+      </div>
+      <div class="location-block">
+        <div class="location-block__map">
+          <div style="text-align: center; padding: var(--space-4);">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 48px; height: 48px; margin: 0 auto var(--space-2); stroke: var(--sage);">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+            </svg>
+            <p style="font-size: var(--text-sm); margin-bottom: 0; font-weight: 600;">118 W. University</p>
+            <p style="font-size: var(--text-xs); color: var(--warm-gray); margin-bottom: 0;">Downtown Rochester, MI</p>
+            <a href="https://www.instagram.com/lejuicerochester/" target="_blank" style="display: inline-block; margin-top: var(--space-3); color: var(--sage); font-size: var(--text-sm);">@lejuicerochester</a>
+          </div>
+        </div>
+        <div class="location-block__info">
+          <h3>Hours & Info</h3>
+          <div class="info-item">
+            <p class="info-item__label">Address</p>
+            <p class="info-item__value">118 W. University<br>Downtown Rochester, MI</p>
+          </div>
+          <div class="info-item">
+            <p class="info-item__label">Find Us Online</p>
+            <p class="info-item__value">
+              <a href="https://www.instagram.com/lejuicerochester/" target="_blank" style="color: var(--sage);">@lejuicerochester</a>
+            </p>
+          </div>
+          <a href="contact.html" class="btn btn--primary" style="margin-top: var(--space-3);">Contact Us</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <p class="footer__logo">Lé <span>Juice</span></p>
+          <p class="footer__tagline">Organic juice bar + fresh fare. Downtown Rochester, MI.</p>
+          <div class="footer__social">
+            <a href="https://www.instagram.com/lejuicerochester/" target="_blank" aria-label="Instagram">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        <div>
+          <h4 class="footer__heading">Quick Links</h4>
+          <ul class="footer__links">
+            <li><a href="index.html" class="footer__link">Home</a></li>
+            <li><a href="menu.html" class="footer__link">Menu</a></li>
+            <li><a href="about.html" class="footer__link">About</a></li>
+            <li><a href="contact.html" class="footer__link">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="footer__heading">Find Us</h4>
+          <ul class="footer__links">
+            <li class="footer__link">118 W. University</li>
+            <li class="footer__link">Downtown Rochester, MI</li>
+            <li style="margin-top: var(--space-2);" class="footer__link">
+              <a href="https://www.instagram.com/lejuicerochester/" target="_blank" class="footer__link" style="color: var(--sage);">@lejuicerochester</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 Lé Juice. Downtown Rochester, Michigan.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => header.classList.toggle('scrolled', window.scrollY > 50));
+    const navToggle = document.getElementById('navToggle');
+    const navList = document.getElementById('navList');
+    navToggle.addEventListener('click', () => navList.classList.toggle('open'));
+  </script>
+
+</body>
+</html>
